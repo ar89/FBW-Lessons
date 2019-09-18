@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Async Demo JavaScript</title>
+    <title>Callback</title>
 </head>
 <body>
     <script> 
@@ -13,29 +13,41 @@
     //f2(); // f2 will wait utnil f1 is finished
     //f3(); // f3 will not wait until f3 finished
 
-    function checkUser(){
+    function checkUser(callback){
         setTimeout(function(){
 console.log("Checking user....");
+callback();
         },3000); // 3sec timeout
     }
 
 
-    function  downloadFile(){
+    function  downloadFile(callback){
         setTimeout(function(){
 console.log("Downloading file....");
+callback();
         },2000); // 2sec timeout
     }
 
-    function closeSession(){
+    function closeSession(callback){
         setTimeout(function(){
 console.log("Closing session....");
+callback(); 
         },1000); // 1sec timeout
     }
 function run(){
-checkUser();
-downloadFile();
-closeSession();
+
+checkUser(function(){
+
+    downloadFile(function(){
+        closeSession(function(){
+// All three functions at this point have completed
+        });
+    });
+});
+
+
 }
     </script>
 </body>
 </html>
+
