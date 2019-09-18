@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Callback</title>
+</head>
+<body>
+    <script> 
+    //Prototype
+    //f1();
+    //f2(); // f2 will wait utnil f1 is finished
+    //f3(); // f3 will not wait until f3 finished
+
+    function checkUser(){
+        //return a promise with resolve reject functions
+        return new Promise((resolve,reject) =>{
+            setTimeout(function(){
+console.log("Checking the user......");
+            resolve("success checkUser"); //resolve function
+        },3000); //3sec timeout
+// arrow function is just return 
+})  
+
+}   
+
+
+    function  downloadFile(){
+            //return a promise with resolve reject functions
+            return new Promise((resolve,reject) => {
+            setTimeout(function(){
+console.log("Downloading the file......");
+            resolve("success downloadFile "); //resolve function
+        },2000); //2sec timeout
+// arrow function is just return 
+})  
+
+} 
+
+    function closeSession(){
+           //return a promise with resolve reject functions
+           return new Promise((resolve,reject) =>{
+            setTimeout(function(){
+console.log("Closing the session......");
+            resolve("success closeSession"); //resolve function
+        },1000); //1sec timeout
+// arrow function is just return 
+})  
+
+} 
+
+
+function run(){
+
+const promise=checkUser().then(
+    function() {
+        // function(value) {
+        // console.log(value);
+        return downloadFile();
+    }
+).then(
+    function(){
+        return closeSession();
+    }
+) 
+
+}
+    </script>
+</body>
+</html>
+
